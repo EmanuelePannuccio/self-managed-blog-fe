@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - Il Mio Blog{% endblock %}
+
+{% block content %}
+<article class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="p-6">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold mb-2">{{ post.title }}</h1>
+            <div class="flex items-center text-gray-500 space-x-4">
+                <span>{{ post.author }}</span>
+                <span>•</span>
+                <span>{{ post.date }}</span>
+            </div>
+        </header>
+        
+        <div class="prose max-w-none">
+            <p>{{ post.content }}</p>
+        </div>
+    </div>
+</article>
+
+<section class="mt-8">
+    <h2 class="text-2xl font-semibold mb-4">Commenti</h2>
+    <div id="comments" class="space-y-4">
+        <!-- I commenti verranno caricati via JavaScript -->
+        <p class="text-gray-500">Caricamento commenti...</p>
+    </div>
+    
+    <form id="comment-form" class="mt-8">
+        <h3 class="text-xl font-semibold mb-4">Lascia un commento</h3>
+        <div class="space-y-4">
+            <div>
+                <label for="name" class="block text-gray-700 mb-2">Nome</label>
+                <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent">
+            </div>
+            <div>
+                <label for="comment" class="block text-gray-700 mb-2">Commento</label>
+                <textarea id="comment" rows="4" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"></textarea>
+            </div>
+            <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                Invia commento
+            </button>
+        </div>
+    </form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Qui puoi aggiungere il codice per gestire i commenti
+    document.addEventListener('DOMContentLoaded', function() {
+        // Simulazione caricamento commenti
+        setTimeout(() => {
+            document.getElementById('comments').innerHTML = `
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <p class="text-gray-500">Nessun commento ancora. Sii il primo a commentare!</p>
+                </div>
+            `;
+        }, 1000);
+        
+        // Gestione form commenti
+        document.getElementById('comment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Commento inviato! (Nella realtà qui ci sarebbe una chiamata AJAX)');
+            this.reset();
+        });
+    });
+</script>
+{% endblock %}
